@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAESAN'S iPHONE — fan-made concept</title>
+<style>
+:root{--ink:#f6f4f2;--muted:#aaa6a8;--glass:rgba(24,24,27,.58);--line:rgba(255,255,255,.16);--accent:#d8c4a8}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#3c3638 0,#181719 42%,#09090a 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
+button,input,textarea{font:inherit}button{cursor:pointer;color:inherit}
+.stage{width:min(100%,430px);display:flex;flex-direction:column;align-items:center;gap:12px}
+.caption{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#aaa1a0}
+.phone{position:relative;width:min(100%,375px);height:min(790px,calc(100dvh - 105px));min-height:610px;border:7px solid #343235;border-radius:48px;overflow:hidden;background:#101013;box-shadow:0 30px 90px #000a,inset 0 0 0 1px #ffffff22;isolation:isolate}
+.phone:before{content:"";position:absolute;inset:0;border-radius:40px;pointer-events:none;box-shadow:inset 0 0 0 1px #ffffff19;z-index:20}
+.wallpaper{position:absolute;inset:0;background:linear-gradient(165deg,#555052 0%,#242124 36%,#101012 75%),radial-gradient(ellipse at 70% 20%,#b6a69b55,transparent 40%);z-index:-1}
+.wallpaper:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 30%,#fff05 48%,transparent 70%),linear-gradient(180deg,#0001,#0008)}
+.status{position:absolute;top:15px;left:25px;right:25px;height:22px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:650;z-index:5}
+.status-right{display:flex;gap:5px;align-items:center}.signal{letter-spacing:-2px;font-size:13px}.battery{width:20px;height:10px;border:1px solid #fff;border-radius:3px;position:relative}.battery:before{content:"";position:absolute;left:2px;top:2px;bottom:2px;width:12px;background:#fff;border-radius:1px}.battery:after{content:"";position:absolute;right:-3px;top:3px;height:3px;width:2px;background:#fff;border-radius:0 2px 2px 0}
+.dynamic{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:106px;height:29px;border-radius:20px;background:#050505;z-index:6}
+.screen{position:absolute;inset:0;display:none}.screen.active{display:block}
+.lock-content{position:absolute;inset:75px 20px 22px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.lock-date{font-size:15px;font-weight:500;letter-spacing:.02em;color:#f4eeee;margin-top:16px;text-shadow:0 1px 10px #0008}
+.lock-time{font-size:clamp(76px,23vw,100px);line-height:1.02;letter-spacing:-.075em;font-weight:250;margin-top:2px;text-shadow:0 2px 22px #0005;font-variant-numeric:tabular-nums}
+.lock-tag{margin-top:22px;font-size:10px;letter-spacing:.3em;color:#e2d5ca;text-transform:uppercase}
+.lock-note{margin-top:9px;font-size:12px;color:#e9e0da;line-height:1.5}
+.lock-bottom{margin-top:auto;width:100%;display:flex;justify-content:space-between;align-items:end;padding:0 12px 4px}
+.round-control{width:44px;height:44px;border:1px solid #ffffff2e;border-radius:50%;background:#15151888;display:grid;place-items:center;backdrop-filter:blur(12px);font-size:19px}
+.unlock-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:.12em;color:#ffffffc9;animation:pulse 2s infinite}
+.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:112px;height:4px;border-radius:4px;background:#fff;z-index:15}
+@keyframes pulse{50%{opacity:.55}}
+.home-top{padding:62px 22px 0;display:flex;justify-content:space-between;align-items:center}
+.mini-date{font-size:12px;color:#ffffffc9}.hello{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:#e0d3c7}
+.widget{margin:16px 20px 20px;padding:13px 15px;border:1px solid #ffffff24;border-radius:19px;background:#18171980;backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between}
+.widget small{display:block;color:#bdb4b0;font-size:10px;letter-spacing:.12em;margin-bottom:5px}.widget strong{font-size:14px;font-weight:550}.widget .moon{font-size:26px}
+.app-grid{padding:0 22px;display:grid;grid-template-columns:repeat(4,1fr);column-gap:12px;row-gap:21px}
+.app{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:7px;padding:0;min-width:0}
+.app-icon{width:57px;height:57px;border-radius:16px;display:grid;place-items:center;font-size:26px;box-shadow:0 5px 12px #0003,inset 0 1px 0 #ffffff55;position:relative;overflow:hidden}
+.app-icon:after{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#ffffff24,transparent 50%);pointer-events:none}
+.app-label{font-size:10px;color:#fff;text-shadow:0 1px 4px #000;white-space:nowrap}
+.photos{background:linear-gradient(135deg,#e9e3d7,#aeb8ba 48%,#8d776e)}.notes{background:linear-gradient(160deg,#f5e8a9 0 28%,#f5f2e7 28%);color:#49443b}.music{background:linear-gradient(135deg,#a75ac9,#f04c87 55%,#e7a1b7)}.messages{background:linear-gradient(145deg,#65df85,#20a94f)}.calendar{background:#f5f2ed;color:#272426}.instagram{background:linear-gradient(135deg,#7755d9,#e74477 55%,#f6a14b)}.camera{background:linear-gradient(145deg,#626268,#29292e)}.phoneapp{background:linear-gradient(145deg,#64dc83,#15994a)}
+.dock{position:absolute;bottom:28px;left:16px;right:16px;border:1px solid #ffffff28;background:#e8e0db35;backdrop-filter:blur(24px);border-radius:25px;padding:12px 15px;display:flex;justify-content:space-around}
+.dock .app-icon{width:48px;height:48px;border-radius:14px}.dock .app-label{display:none}
+.app-view{position:absolute;inset:0;background:#f5f4f2;color:#19191b;display:none;z-index:10}.app-view.open{display:block}
+.app-head{height:94px;padding:49px 20px 12px;display:flex;align-items:end;justify-content:space-between;border-bottom:1px solid #0000000b;background:#f8f7f5}
+.app-head h2{font-size:25px;letter-spacing:-.04em;margin:0;font-weight:750}.app-head button{border:0;background:#e7e5e3;color:#272528;border-radius:50%;width:32px;height:32px;font-size:20px}
+.app-body{height:calc(100% - 94px);overflow:auto;padding:18px 17px 36px}
+.subtle{color:#777278}.section-title{font-size:12px;color:#777278;text-transform:uppercase;letter-spacing:.12em;margin:6px 0 12px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.photo-tile{aspect-ratio:1;border:0;border-radius:8px;background:linear-gradient(145deg,#343036,#b5a59c);display:grid;place-items:center;color:#fff;font-size:23px;overflow:hidden}.photo-tile:nth-child(3n+2){background:linear-gradient(145deg,#aaa39b,#3b393c)}.photo-tile:nth-child(3n){background:linear-gradient(145deg,#5b5353,#c2b9ad)}
+.note-card,.list-card{background:#fff;border-radius:14px;padding:15px;margin-bottom:10px;box-shadow:0 2px 8px #00000008}.note-card h3,.list-card h3{margin:0 0 6px;font-size:15px}.note-card p,.list-card p{margin:0;color:#69656b;font-size:12px;line-height:1.55;white-space:pre-wrap}.add-button{border:0;border-radius:22px;padding:10px 14px;background:#222;color:white;font-size:12px;margin:8px 0 14px}
+textarea.note-input{width:100%;min-height:100px;border:1px solid #ddd;border-radius:12px;padding:12px;resize:vertical;color:#222;background:#fff}
+.track{background:linear-gradient(145deg,#2d2730,#a88995);border-radius:22px;padding:23px;color:white;text-align:center}.album-art{height:205px;border-radius:15px;background:radial-gradient(circle at 70% 20%,#d8c5b4,#67545b 36%,#211f24 70%);display:grid;place-items:center;font-size:48px;margin-bottom:18px}.track h3{margin:0 0 5px}.track p{margin:0 0 18px;color:#ddd0d3;font-size:12px}.progress{width:100%;height:4px;border-radius:4px;background:#ffffff48;margin:16px 0 7px}.progress span{display:block;width:35%;height:100%;background:white;border-radius:4px}.player-controls{display:flex;justify-content:center;align-items:center;gap:28px;margin-top:18px}.player-controls button{border:0;background:transparent;color:white;font-size:25px}.player-controls .play{width:48px;height:48px;border-radius:50%;background:#fff;color:#29232a;font-size:19px}
+.chat-list{display:flex;align-items:center;gap:12px;padding:13px 3px;border-bottom:1px solid #e5e2e2}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#29262b;color:white}.chat-list strong{font-size:14px}.chat-list p{font-size:12px;color:#7a757b;margin:5px 0 0}.chat-bubble{padding:11px 13px;border-radius:17px;background:#e8e6e8;max-width:82%;font-size:13px;margin:10px 0;line-height:1.5}.chat-bubble.me{margin-left:auto;background:#39c75d;color:white}.chat-compose{display:flex;gap:7px;margin-top:16px}.chat-compose input{flex:1;min-width:0;border:1px solid #ddd;border-radius:20px;padding:10px 13px}.chat-compose button{border:0;background:#39bc58;color:white;border-radius:50%;width:38px}
+.calendar-month{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.calendar-month button{border:0;background:#eee;border-radius:9px;padding:6px 10px;color:#222}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}.calendar-grid span{font-size:11px;padding:9px 0;border-radius:10px}.calendar-grid .day{color:#8c878b}.calendar-grid .today{background:#262329;color:white}.event{background:#fff;border-radius:12px;padding:12px;margin-top:15px;font-size:13px}.insta-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}.insta-avatar{width:76px;height:76px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#8e5fe5,#ee4e78,#f5a34b)}.insta-avatar span{display:grid;place-items:center;width:100%;height:100%;border:3px solid white;border-radius:50%;background:#242126;color:white;font-size:22px}.insta-stats{display:flex;justify-content:space-around;text-align:center;flex:1;font-size:12px}.insta-stats b{display:block;font-size:15px;margin-bottom:4px}.insta-bio{font-size:12px;line-height:1.6;margin-bottom:18px}.insta-post{height:230px;border-radius:12px;background:linear-gradient(145deg,#302c32,#a99a91 45%,#4a4246);display:grid;place-items:center;color:#fff;font-size:38px;position:relative;overflow:hidden}.insta-post:after{content:"FAN-MADE CONCEPT";position:absolute;bottom:13px;font-size:9px;letter-spacing:.2em;color:#ffffffbb}
+.camera-screen{height:100%;background:#17171a;color:white;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:110px 20px 60px}.camera-preview{width:100%;aspect-ratio:3/4;border-radius:22px;background:radial-gradient(ellipse at 40% 30%,#8b7e80,#363036 44%,#111114 80%);display:grid;place-items:center;font-size:12px;color:#ffffffb0;text-align:center;padding:25px}.shutter{width:70px;height:70px;border:5px solid white;border-radius:50%;background:#ffffff44;box-shadow:inset 0 0 0 3px #242424}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;max-width:270px;margin:20px auto}.keypad button{height:62px;border:0;border-radius:50%;background:#e6e4e5;color:#242126;font-size:22px}.keypad small{display:block;font-size:8px;letter-spacing:.1em}.call-button{display:block;margin:15px auto;border:0;border-radius:50%;width:55px;height:55px;background:#38bc5b;color:white;font-size:23px}
+.notice{font-size:10px;color:#bfb8b6;text-align:center;line-height:1.6;max-width:320px}
+@media(max-width:430px){body{padding:8px;background:#0d0c0e}.stage{gap:6px}.phone{width:100%;height:calc(100dvh - 42px);min-height:560px;border-radius:42px;border-width:5px}.phone:before{border-radius:36px}.app-grid{column-gap:7px;padding:0 18px}.app-icon{width:54px;height:54px}.home-top{padding-top:58px}.widget{margin-top:13px;margin-bottom:18px}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="caption">TAESAN'S IPHONE · FAN-MADE CONCEPT</div>
+  <main class="phone" id="phone">
+    <div class="wallpaper"></div>
+    <div class="status"><span id="statusTime">9:41</span><div class="status-right"><span class="signal">▂▄▆</span><span>⌁</span><span class="battery"></span></div></div>
+    <div class="dynamic"></div>
+    <section class="screen active" id="lock">
+      <div class="lock-content">
+        <div class="lock-date" id="lockDate">월요일, 10월 19일</div>
+        <div class="lock-time" id="lockTime">9:41</div>
+        <div class="lock-tag">TAESAN · PERSONAL SPACE</div>
+        <div class="lock-note">a little archive of ordinary days.<br>made with love, for fun.</div>
+        <div class="lock-bottom"><button class="round-control" aria-label="손전등" onclick="toast('손전등은 콘셉트 버튼이야')">ϟ</button><button class="round-control" aria-label="카메라" onclick="openApp('camera')">◉</button></div>
+      </div>
+      <button class="unlock-hint" style="border:0;background:transparent" onclick="unlock()">위로 밀어 잠금 해제 ↑</button>
+    </section>
+    <section class="screen" id="home">
+      <div class="home-top"><span class="mini-date" id="homeDate">MON, OCT 19</span><span class="hello">TAESAN'S SPACE</span></div>
+      <div class="widget"><div><small>PERSONAL ARCHIVE</small><strong>오늘도 나답게, 천천히.</strong></div><span class="moon">☾</span></div>
+      <div class="app-grid" id="appGrid"></div>
+      <div class="dock" id="dock"></div>
+    </section>
+    <section class="app-view" id="appView">
+      <header class="app-head"><h2 id="appTitle">Photos</h2><button onclick="closeApp()" aria-label="닫기">×</button></header>
+      <div class="app-body" id="appBody"></div>
+    </section>
+    <div class="home-indicator" id="homeIndicator"></div>
+  </main>
+  <div class="notice">비공식 팬메이드 콘셉트 · 실제 태산의 기기나 비공개 정보와 무관합니다.<br>앱을 눌러 보고, 화면 아래 홈 표시를 누르면 돌아갈 수 있어요.</div>
+</div>
+<script>
+const apps=[
+ {id:'photos',name:'사진첩',en:'Photos',icon:'▧',cls:'photos'},
+ {id:'notes',name:'메모',en:'Notes',icon:'▤',cls:'notes'},
+ {id:'music',name:'음악',en:'Music',icon:'♫',cls:'music'},
+ {id:'messages',name:'메시지',en:'Messages',icon:'●',cls:'messages'},
+ {id:'calendar',name:'캘린더',en:'Calendar',icon:'19',cls:'calendar'},
+ {id:'instagram',name:'인스타그램',en:'Instagram',icon:'◎',cls:'instagram'},
+ {id:'camera',name:'카메라',en:'Camera',icon:'◉',cls:'camera'},
+ {id:'phoneapp',name:'전화',en:'Phone',icon:'☎',cls:'phoneapp'}
+];
+let currentApp=null, monthOffset=0, playing=false;
+let notes=JSON.parse(localStorage.getItem('taesanNotes')||'null')||[
+ {title:'오늘의 메모',body:'좋아하는 노래를 들으면서 걷기.\n별거 아닌 하루도 기억해 두기.'},
+ {title:'작업 아이디어',body:'새로운 멜로디, 새벽 공기, 그리고 검은색 노트.'}
+];
+function updateClock(){
+ const d=new Date(); const time=d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});
+ document.getElementById('statusTime').textContent=time;
+ document.getElementById('lockTime').textContent=time;
+ document.getElementById('lockDate').textContent=d.toLocaleDateString('ko-KR',{weekday:'long',month:'long',day:'numeric'});
+ document.getElementById('homeDate').textContent=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase();
+}
+updateClock();setInterval(updateClock,30000);
+function makeIcon(a){return `<button class="app" onclick="openApp('${a.id}')"><span class="app-icon ${a.cls}">${a.icon}</span><span class="app-label">${a.name}</span></button>`}
+document.getElementById('appGrid').innerHTML=apps.map(makeIcon).join('');
+document.getElementById('dock').innerHTML=['phoneapp','messages','photos','music'].map(id=>makeIcon(apps.find(a=>a.id===id))).join('');
+function unlock(){document.getElementById('lock').classList.remove('active');document.getElementById('home').classList.add('active')}
+function goHome(){closeApp();document.getElementById('lock').classList.remove('active');document.getElementById('home').classList.add('active')}
+document.getElementById('homeIndicator').addEventListener('click',goHome);
+let touchStart=null;
+document.getElementById('lock').addEventListener('touchstart',e=>touchStart=e.touches[0].clientY,{passive:true});
+document.getElementById('lock').addEventListener('touchend',e=>{if(touchStart!==null&&touchStart-e.changedTouches[0].clientY>35)unlock();touchStart=null},{passive:true});
+function openApp(id){currentApp=id;const a=apps.find(x=>x.id===id);document.getElementById('appTitle').textContent=a.en;document.getElementById('appView').classList.add('open');renderApp(id)}
+function closeApp(){document.getElementById('appView').classList.remove('open');currentApp=null}
+function toast(msg){const el=document.createElement('div');el.textContent=msg;el.style.cssText='position:absolute;z-index:30;left:50%;top:45%;transform:translate(-50%,-50%);padding:13px 17px;border-radius:14px;background:#222;color:white;font-size:12px;box-shadow:0 5px 25px #0007;text-align:center;width:max-content;max-width:80%';document.getElementById('phone').appendChild(el);setTimeout(()=>el.remove(),1800)}
+function renderApp(id){
+ const body=document.getElementById('appBody');
+ if(id==='photos') body.innerHTML=`<div class="section-title">최근 항목 · FAN-MADE PLACEHOLDERS</div><div class="photo-grid">${['✦','☾','♬','✧','▧','✦','☁','✧','♡','☾','♬','✦'].map((s,i)=>`<button class="photo-tile" onclick="photoOpen(${i})">${s}</button>`).join('')}</div><p class="subtle" style="font-size:11px;margin-top:16px">사진 타일은 임시 콘셉트 이미지 자리야. 네가 가진 사진으로 교체할 수 있어.</p>`;
+ if(id==='notes') body.innerHTML=`<button class="add-button" onclick="addNote()">＋ 새 메모</button><div id="notesList">${notes.map((n,i)=>`<div class="note-card"><h3>${esc(n.title)}</h3><p>${esc(n.body)}</p><button class="add-button" style="background:#eee;color:#333;margin-bottom:0" onclick="editNote(${i})">편집</button> <button class="add-button" style="background:#eee;color:#333;margin-bottom:0" onclick="deleteNote(${i})">삭제</button></div>`).join('')}</div>`;
+ if(id==='music') body.innerHTML=`<div class="track"><div class="album-art">☾</div><h3>midnight archive</h3><p>TAESAN'S MIX · FAN-MADE</p><div class="progress"><span id="progressFill"></span></div><div style="display:flex;justify-content:space-between;font-size:10px;color:#ddd0d3"><span>1:12</span><span>3:28</span></div><div class="player-controls"><button onclick="toast('이전 트랙')">Ⅱ◀</button><button class="play" id="playBtn" onclick="togglePlay()">▶</button><button onclick="toast('다음 트랙')">▶Ⅱ</button></div></div><p class="subtle" style="font-size:12px;text-align:center;margin-top:18px">실제 음원은 연결하지 않은 시각적 플레이어 콘셉트입니다.</p>`;
+ if(id==='messages') body.innerHTML=`<div id="chatList"><div class="chat-list" onclick="openChat()"><div class="avatar">T</div><div><strong>나에게 보내는 메시지</strong><p>오늘의 기분을 기록해 두기 ✦</p></div></div><div class="chat-list" onclick="openChat()"><div class="avatar">✦</div><div><strong>작업실 단톡 (가상)</strong><p>오늘 아이디어 진짜 좋았어!</p></div></div></div><div id="chatRoom" style="display:none"><button class="add-button" onclick="backChats()">← 대화 목록</button><div class="chat-bubble">오늘은 어떤 하루였어?</div><div class="chat-bubble me">조금 바빴지만 괜찮았어.</div><div class="chat-bubble">그럼 다행이다. 푹 쉬자 ☾</div><div id="extraMessages"></div><div class="chat-compose"><input id="chatInput" placeholder="메시지 입력…" /><button onclick="sendMessage()">↑</button></div><p class="subtle" style="font-size:10px">가상 대화 · 팬메이드</p></div>`;
+ if(id==='calendar') body.innerHTML=`<div class="calendar-month"><button onclick="shiftMonth(-1)">‹</button><strong id="monthTitle"></strong><button onclick="shiftMonth(1)">›</button></div><div class="calendar-grid" id="calendarGrid"></div><div class="event"><strong>✦ 오늘의 기록</strong><p style="margin:7px 0 0;color:#777">좋아하는 노래 듣기 · 나만의 일정</p></div><p class="subtle" style="font-size:10px">활동 일정은 공개된 정보나 직접 입력한 일정으로 추가해 주세요.</p>`; if(id==='calendar') drawCalendar();
+ if(id==='instagram') body.innerHTML=`<div class="insta-top"><div class="insta-avatar"><span>T</span></div><div class="insta-stats"><div><b>24</b>posts</div><div><b>♡</b>likes</div><div><b>✦</b>archive</div></div></div><div class="insta-bio"><strong>taesan archive ✦</strong><br>little moments, late nights.<br><span style="color:#777">fan-made concept · not an official account</span></div><div class="insta-post">✧</div><div style="display:flex;gap:18px;margin-top:12px"><button onclick="this.textContent=this.textContent==='♡ 좋아요'?'♥ 좋아요':'♡ 좋아요';toast('가상 좋아요') " style="border:0;background:transparent;color:#242126">♡ 좋아요</button><button onclick="toast('팬메이드 게시물입니다')" style="border:0;background:transparent;color:#242126">○ 댓글</button><button onclick="toast('공유 기능은 콘셉트 화면입니다')" style="border:0;background:transparent;color:#242126">↗ 공유</button></div>`;
+ if(id==='camera') body.innerHTML=`<div class="camera-screen"><div style="font-size:12px;letter-spacing:.15em">PHOTO · 1×</div><div class="camera-preview">카메라 미리보기<br><br><span style="font-size:10px">실제 카메라 기능은 권한 연결 후 추가 가능</span></div><button class="shutter" onclick="toast('촬영 기능은 다음 제작 단계에서 연결할 수 있어')"></button></div>`;
+ if(id==='phoneapp') body.innerHTML=`<div class="section-title">즐겨찾기 · 가상 연락처</div><div class="chat-list"><div class="avatar">T</div><div><strong>Taesan · 내 기록</strong><p>팬메이드 연락처</p></div></div><div class="section-title" style="margin-top:22px">키패드</div><div style="text-align:center;font-size:23px;min-height:28px" id="dialNumber"></div><div class="keypad">${['1','2','3','4','5','6','7','8','9','*','0','#'].map((n,i)=>`<button onclick="dial('${n}')">${n}${i<9?`<small>${['','ABC','DEF','GHI','JKL','MNO','PQRS','TUV','WXYZ'][i]||''}</small>`:''}</button>`).join('')}</div><button class="call-button" onclick="toast('실제 통화는 연결되지 않는 팬메이드 화면입니다')">☎</button>`;
+}
+function photoOpen(i){toast('사진 '+(i+1)+' · 이미지 교체 예정')}
+function addNote(){notes.unshift({title:'새 메모',body:'여기에 내용을 입력해 주세요.'});saveNotes();renderApp('notes');}
+function editNote(i){const title=prompt('메모 제목',notes[i].title);if(title===null)return;const body=prompt('메모 내용',notes[i].body);if(body===null)return;notes[i]={title,body};saveNotes();renderApp('notes')}
+function deleteNote(i){if(confirm('이 메모를 삭제할까요?')){notes.splice(i,1);saveNotes();renderApp('notes')}}
+function saveNotes(){localStorage.setItem('taesanNotes',JSON.stringify(notes))}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function togglePlay(){playing=!playing;document.getElementById('playBtn').textContent=playing?'Ⅱ':'▶';toast(playing?'콘셉트 재생 상태':'일시정지')}
+function openChat(){document.getElementById('chatList').style.display='none';document.getElementById('chatRoom').style.display='block'}
+function backChats(){document.getElementById('chatList').style.display='block';document.getElementById('chatRoom').style.display='none'}
+function sendMessage(){const input=document.getElementById('chatInput');if(!input.value.trim())return;const d=document.createElement('div');d.className='chat-bubble me';d.textContent=input.value;document.getElementById('extraMessages').appendChild(d);input.value=''}
+function shiftMonth(n){monthOffset+=n;drawCalendar()}
+function drawCalendar(){const d=new Date();const year=d.getFullYear(),month=d.getMonth()+monthOffset;const first=new Date(year,month,1),last=new Date(year,month+1,0);document.getElementById('monthTitle').textContent=first.toLocaleDateString('ko-KR',{year:'numeric',month:'long'});const grid=document.getElementById('calendarGrid');const heads=['일','월','화','수','목','금','토'];grid.innerHTML=heads.map(x=>`<span class="day">${x}</span>`).join('');for(let i=0;i<first.getDay();i++)grid.innerHTML+='<span></span>';for(let day=1;day<=last.getDate();day++){const today=month===d.getMonth()&&day===d.getDate();grid.innerHTML+=`<span class="${today?'today':''}" onclick="toast('${month+1}월 ${day}일 선택')">${day}</span>`}}
+</script>
+</body>
+</html>
