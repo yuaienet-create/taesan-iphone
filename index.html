@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#17171c">
+<title>태산 × 운학 — iPhone Fanmade</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="태산 × 운학 팬메이드 아이폰 시뮬레이터 · 맛보기 버전">
+<style>
+:root{--ink:#17171c;--muted:#777985;--glass:rgba(255,255,255,.17);--line:rgba(255,255,255,.22);--pink:#f7c9d6;--blue:#c8d8ff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Apple SD Gothic Neo",sans-serif;background:#101015;color:#fff;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+.phone{position:relative;width:min(100vw,430px,calc(100svh * 9 / 19.5));aspect-ratio:9 / 19.5;height:auto;max-height:100svh;overflow:hidden;background:#222;border-radius:42px;box-shadow:0 25px 90px #000a;border:1px solid #ffffff40;isolation:isolate}
+.wallpaper{position:absolute;inset:0;background-image:linear-gradient(180deg,#14111c18 0%,#14111c12 45%,#11131c99 100%),url('wallpaper.jpg'),radial-gradient(ellipse at 25% 18%,#f6d7d7 0%,transparent 27%),radial-gradient(ellipse at 75% 38%,#b9c7d8 0%,transparent 31%),linear-gradient(150deg,#62535e 0%,#9c7d8b 33%,#333d51 70%,#161a27 100%);background-size:cover;background-position:center;transform:scale(1.04)}
+.wallpaper:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0a101b20 0%,#14111c06 42%,#11131caa 100%)}
+.wallpaper:after{content:"";}
+.status{position:absolute;top:0;left:0;right:0;height:49px;padding:14px 28px 0;display:flex;justify-content:space-between;align-items:flex-start;font-size:14px;font-weight:700;z-index:30;text-shadow:0 1px 8px #0006}
+.status-right{display:flex;gap:6px;align-items:center}.signal{font-size:12px;letter-spacing:-2px}.battery{width:22px;height:11px;border:1.5px solid white;border-radius:3px;position:relative}.battery:before{content:"";position:absolute;inset:2px;background:#fff;border-radius:1px}.battery:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:#fff;border-radius:0 2px 2px 0}
+.screen{position:absolute;inset:0;transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .28s;overflow:hidden}
+.lock{z-index:10}.lock-top{position:absolute;top:70px;width:100%;text-align:center}.lock-date{font-size:15px;font-weight:600;text-shadow:0 1px 8px #0005}.lock-time{font-size:clamp(68px,19vw,91px);font-weight:300;letter-spacing:-5px;line-height:1.1;margin-top:3px;text-shadow:0 1px 15px #0003}
+.widget{background:rgba(245,245,250,.20);border:1px solid #ffffff48;backdrop-filter:blur(24px) saturate(1.35);-webkit-backdrop-filter:blur(24px) saturate(1.35);border-radius:23px;box-shadow:0 8px 25px #00000012}
+.lock-widgets{position:absolute;top:270px;left:23px;right:23px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dday{padding:14px 15px;min-height:94px}.eyebrow{font-size:10px;letter-spacing:1.2px;opacity:.9;font-weight:700}.dday strong{display:block;font-size:19px;letter-spacing:-.5px;margin-top:9px}.dday small{font-size:11px;opacity:.9}
+.music{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:12px 14px;min-height:78px;text-align:left;color:white;border:1px solid #ffffff2e;cursor:pointer}
+.album{width:49px;height:49px;border-radius:11px;flex-shrink:0;background:linear-gradient(145deg,#20202a,#a7a9ba 52%,#29232e);display:grid;place-items:center;font-size:19px}
+.track{flex:1;min-width:0}.track b{display:block;font-size:14px}.track span{font-size:12px;opacity:.75;display:block;margin-top:4px}.play{font-size:20px;padding:4px 8px}
+.unlock-hint{position:absolute;bottom:83px;left:0;right:0;text-align:center;font-size:12px;text-shadow:0 1px 8px #0009;opacity:.9;animation:bob 1.8s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.home-indicator{position:absolute;z-index:50;bottom:8px;left:50%;transform:translateX(-50%);width:135px;height:5px;background:#fff;border-radius:9px;opacity:.95;cursor:pointer}
+.lock .home-indicator{bottom:8px}
+.home{z-index:5;transform:translateY(100%);opacity:0;padding:58px 20px 112px;overflow-y:auto;overscroll-behavior:contain}
+.home.active{transform:translateY(0);opacity:1}
+.home .wallpaper-fade{position:absolute;inset:0;background:#1417251b;pointer-events:none}
+.home-top-widget{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 24px}
+.mini-widget{position:relative;aspect-ratio:1/1;min-width:0;min-height:0;padding:13px;border-radius:23px;background:rgba(245,245,250,.88);border:1px solid #ffffffb8;backdrop-filter:blur(24px) saturate(1.35);-webkit-backdrop-filter:blur(24px) saturate(1.35);color:#24242b;text-shadow:none;box-shadow:0 5px 18px #00000013;overflow:hidden}
+.mini-widget .mini-label{font-size:10px;letter-spacing:.3px;font-weight:700;color:#6d6d77;opacity:1}.mini-widget strong{display:block;font-size:clamp(15px,4.1vw,20px);letter-spacing:-.6px;line-height:1.15;margin-top:7px}.mini-widget small{font-size:10px;color:#777783;display:block;margin-top:5px}
+.dday-mini .heart-row{display:flex;align-items:center;justify-content:space-between;margin-top:13px}.dday-mini .heart{font-size:27px;color:#ef8fae}.dday-mini .day-number{font-size:27px;font-weight:750;letter-spacing:-1.5px;color:#22222a}.dday-mini .day-caption{font-size:10px;color:#777783;margin-top:1px}
+.music-mini{background:linear-gradient(145deg,#f2dce7,#d4c7e2 52%,#a8b5ce);color:white;border-color:#ffffff80;text-shadow:0 1px 8px #0005;display:flex;flex-direction:column;justify-content:space-between}.music-mini:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#24202a00 15%,#17141d9c 100%);pointer-events:none}.music-mini>*{position:relative;z-index:1}.music-mini .mini-label{color:#fff}.music-mini .album-art{width:58px;height:58px;border-radius:13px;background:linear-gradient(135deg,#e5c7d8,#8b8ca8 55%,#343449);box-shadow:0 5px 15px #24202a35;display:grid;place-items:center;font-size:27px;color:#fff}.music-mini strong{font-size:14px;margin-top:8px}.music-mini small{color:#ffffffd9}.music-mini .music-bottom{display:flex;align-items:end;justify-content:space-between;gap:5px}.music-mini .play-mini{width:30px;height:30px;border-radius:50%;background:#ffffffd9;color:#333;display:grid;place-items:center;font-size:12px;flex-shrink:0}
+.apps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,2.1svh,22px) 13px;position:relative;z-index:2;padding-bottom:4px}
+.app-icon{border:0;background:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;min-width:0;cursor:pointer}
+.app-icon .tile{width:min(16vw,61px);height:min(16vw,61px);max-width:61px;max-height:61px;border-radius:17px;display:grid;place-items:center;font-size:29px;box-shadow:0 5px 12px #0002;border:1px solid #ffffff3a}
+.app-icon span:last-child{font-size:10px;text-shadow:0 1px 6px #000b;white-space:nowrap}
+.insta{background:linear-gradient(135deg,#6352c7,#e83b76 55%,#ffb34b)}.phoneapp{background:linear-gradient(145deg,#74e7a0,#15a05a)}.calendarapp{background:#f8f8f8;color:#f04d55}.photosapp{background:conic-gradient(from 10deg,#fa5656,#ffc04a,#71d99b,#58b8ff,#9a72ff,#fa5656);}.messagesapp{background:linear-gradient(145deg,#8ff4a5,#20b85d)}.cameraapp{background:linear-gradient(145deg,#737984,#20232c)}.musicapp{background:linear-gradient(145deg,#f4b2c8,#d93470)}.notesapp{background:linear-gradient(180deg,#fff 0 28%,#f8e88a 28% 100%);color:#4a4737}
+.kakaoapp{background:#FEE500!important;position:relative;color:#381E1F!important}
+.kakaoapp:before{content:"";width:31px;height:24px;background:#381E1F;border-radius:50%;display:block;position:absolute}
+.kakaoapp:after{content:"";position:absolute;left:17px;top:37px;border-top:9px solid #381E1F;border-right:7px solid transparent;transform:rotate(12deg)}
+.kakaoapp{font-size:0!important}
+.dock{position:absolute;left:16px;right:16px;bottom:25px;padding:12px 17px;border-radius:27px;background:#ffffff35;border:1px solid #ffffff2b;backdrop-filter:blur(22px);display:flex;justify-content:space-around}
+.dock .tile{width:51px;height:51px;border-radius:15px;font-size:25px}
+.app-window{position:absolute;z-index:25;inset:0;background:#f8f8fa;color:#17171c;transform:translateY(105%);transition:transform .38s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.app-window.open{transform:translateY(0)}
+.app-header{height:58px;padding:0 17px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #00000010;background:#fafafd;flex-shrink:0}
+.app-header button{border:0;background:#e9e9ef;color:#333;border-radius:20px;padding:7px 12px;font-size:13px}
+.app-header strong{font-size:16px}.app-content{flex:1;overflow:auto;padding:18px 18px 35px;overscroll-behavior:contain}
+.app-content h2{font-size:26px;letter-spacing:-.7px;margin:5px 0 16px}.muted{color:#85858e}
+.profile-head{display:flex;gap:17px;align-items:center;margin:18px 0 22px}.avatar{width:82px;height:82px;border-radius:50%;background:linear-gradient(135deg,#d8bdc7,#555c70);display:grid;place-items:center;font-size:30px;color:#fff;border:3px solid #f0c9d8}
+.stats{display:flex;flex:1;justify-content:space-between;text-align:center;font-size:11px}.stats b{display:block;font-size:16px;margin-bottom:4px}
+.bio{font-size:13px;margin:8px 0 22px}.follow{width:100%;border:0;border-radius:9px;background:#3b82f6;color:white;padding:10px;font-weight:700}
+.post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:18px}.post{aspect-ratio:1;background:linear-gradient(135deg,#e6cbd2,#667187);display:grid;place-items:center;font-size:25px}
+.list-row{display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid #ececf0}.contact-avatar{width:43px;height:43px;border-radius:50%;background:#e9e8ee;display:grid;place-items:center;font-size:21px}.list-row .row-main{flex:1}.list-row b{font-size:15px}.list-row small{display:block;color:#888;margin-top:4px;font-size:12px}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px}.calendar-grid span{padding:9px 0;border-radius:12px}.calendar-grid .marked{background:#f7d9e2;color:#7b2947;font-weight:700}.event{background:#fff;border-radius:13px;padding:14px;margin-top:12px;border:1px solid #ececf0;font-size:14px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.gallery-item{aspect-ratio:1;background:linear-gradient(135deg,#e7ccd6,#8998ae 55%,#3f465b);display:grid;place-items:center;font-size:24px;cursor:pointer}.gallery-item:nth-child(3n+2){background:linear-gradient(135deg,#d9c9ba,#b5a3b7,#626a80)}.gallery-item:nth-child(3n){background:linear-gradient(135deg,#b7c8c6,#d7a9b8,#55566e)}
+.lightbox{position:absolute;inset:0;background:#09090df2;z-index:40;display:none;align-items:center;justify-content:center;flex-direction:column;color:white}.lightbox.show{display:flex}.lightbox .large-photo{width:80vw;max-width:340px;aspect-ratio:3/4;border-radius:20px;background:linear-gradient(145deg,#e6cad5,#8a91a8,#272d42);display:grid;place-items:center;font-size:65px}.lightbox button{margin-top:22px;border:0;border-radius:20px;padding:10px 18px}
+.chat-list{display:flex;flex-direction:column;gap:10px;padding:12px 0}.bubble{max-width:82%;padding:11px 13px;border-radius:18px;font-size:14px;line-height:1.4;background:#e9e9ef;align-self:flex-start}.bubble.me{background:#83e879;align-self:flex-end}.chat-time{text-align:center;color:#999;font-size:11px;margin:10px}.chat-compose{display:flex;gap:8px;padding:10px;border-top:1px solid #ddd;background:#f7f7fa}.chat-compose input{flex:1;min-width:0;border:1px solid #d4d4db;border-radius:20px;padding:10px 13px;font-size:14px}.chat-compose button{border:0;background:#1686ff;color:white;border-radius:20px;padding:0 15px}
+.keypad-screen{position:absolute;z-index:20;inset:0;background:#10131dcf;backdrop-filter:blur(25px);display:none;flex-direction:column;align-items:center;padding-top:18%;}.keypad-screen.show{display:flex}.keypad-screen h3{font-weight:500;font-size:19px}.dots{display:flex;gap:14px;margin:18px 0 26px}.dot{width:10px;height:10px;border-radius:50%;border:1px solid white}.dot.filled{background:#fff}.keypad{display:grid;grid-template-columns:repeat(3,70px);gap:12px}.key{width:70px;height:70px;border-radius:50%;border:1px solid #ffffff22;background:#ffffff20;color:#fff;font-size:25px;cursor:pointer}.key small{display:block;font-size:9px;letter-spacing:1px}.key.blank{visibility:hidden}
+.call-screen{position:absolute;inset:0;z-index:55;display:none;flex-direction:column;align-items:center;padding:68px 28px 28px;background:radial-gradient(ellipse at 50% 20%,#4a5264 0%,#242731 43%,#101116 100%);color:#fff}.call-screen.show{display:flex}.call-name{font-size:28px;font-weight:500;margin-top:18px}.call-state{color:#c5c7cf;font-size:14px;margin-top:8px}.call-line{width:100%;margin-top:42px;padding:20px 16px;background:#ffffff14;border:1px solid #ffffff1b;border-radius:18px;font-size:19px;line-height:1.5;min-height:82px}.call-line small{display:block;color:#c2c5ce;font-size:11px;margin-bottom:7px}.call-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 15px;margin-top:auto;margin-bottom:25px;width:100%}.call-control{border:0;background:#ffffff22;color:white;border-radius:50%;width:58px;height:58px;font-size:23px;margin:auto;display:grid;place-items:center}.call-control-label{text-align:center;color:#eee;font-size:11px;margin-top:7px}.call-end{background:#f04444!important}.kakao-top{background:#FEE500;border-radius:12px;padding:13px;color:#332b17;font-weight:700;margin-bottom:12px}.chat-date{align-self:center;color:#999;font-size:11px;background:#e7e7ec;border-radius:12px;padding:5px 9px;margin:12px 0}.media-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.media-tools button{border:0;border-radius:10px;background:#ececf2;padding:9px 12px;color:#222;font-size:12px}.media-thumb{position:relative;aspect-ratio:1;overflow:hidden;background:#e7d5df;border-radius:5px}.media-thumb img,.media-thumb video{width:100%;height:100%;object-fit:cover}.media-thumb button{position:absolute;top:4px;right:4px;border:0;border-radius:50%;background:#0009;color:#fff;width:25px;height:25px}.toast{position:absolute;z-index:60;top:54px;left:50%;transform:translateX(-50%);background:#222d;color:white;padding:9px 14px;border-radius:20px;font-size:12px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}.toast.show{opacity:1}
+@media(min-width:600px){.phone{height:min(92svh,900px);width:auto;aspect-ratio:9 / 19.5;max-width:92vw}}
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+ <div class="wallpaper"></div>
+ <div class="status"><span id="statusTime">9:41</span><div class="status-right"><span class="signal">▮▮▮</span><span>⌁</span><div class="battery"></div></div></div>
+ <section class="screen lock" id="lock">
+  <div class="lock-top"><div class="lock-date" id="lockDate">10월 21일 수요일</div><div class="lock-time" id="lockTime">9:41</div></div>
+  <div class="lock-widgets">
+   <div class="widget dday"><div class="eyebrow">우리의 기록</div><strong>돼지🐷 918일</strong><small>너랑 함께한 시간</small></div>
+   <button class="widget music" id="lockMusic"><div class="album">♫</div><div class="track"><b>아까워</b><span>재지팩트 · Lifes Like</span></div><span class="play">▶</span></button>
+  </div>
+  <div class="unlock-hint">위로 쓸어 올려 열기</div>
+  <div class="home-indicator" id="unlockBar"></div>
+ </section>
+ <section class="screen home" id="home">
+  <div class="wallpaper-fade"></div>
+  <div class="home-top-widget">
+   <div class="mini-widget dday-mini"><div class="mini-label">우리의 기록</div><div class="heart-row"><div><div class="day-number">918일</div><div class="day-caption">돼지🐷 · 함께한 날</div></div><span class="heart">♥</span></div><div style="margin-top:12px;height:4px;border-radius:8px;background:#e8dfe4;overflow:hidden"><div style="width:78%;height:100%;background:linear-gradient(90deg,#f3a8c0,#d77e9c);border-radius:8px"></div></div></div>
+   <button class="mini-widget music-mini" id="homeMusic" style="text-align:left;border:1px solid #ffffff80;cursor:pointer"><div class="mini-label">지금 재생 중</div><div class="album-art">♫</div><div class="music-bottom"><div><strong>널 생각해</strong><small>Babylon</small></div><span class="play-mini">▶</span></div></button>
+  </div>
+  <div class="apps">
+   <button class="app-icon" data-app="instagram"><span class="tile insta">◎</span><span>Instagram</span></button>
+   <button class="app-icon" data-app="contacts"><span class="tile phoneapp">☎</span><span>전화</span></button>
+   <button class="app-icon" data-app="calendar"><span class="tile calendarapp">20</span><span>캘린더</span></button>
+   <button class="app-icon" data-app="photos"><span class="tile photosapp">✿</span><span>사진</span></button>
+   <button class="app-icon" data-app="messages"><span class="tile messagesapp">●</span><span>메시지</span></button>
+   <button class="app-icon" data-app="kakao"><span class="tile kakaoapp" aria-label="카카오톡"></span><span>카카오톡</span></button>
+   <button class="app-icon" data-app="music"><span class="tile musicapp">♫</span><span>음악</span></button>
+   <button class="app-icon" data-app="notes"><span class="tile notesapp">☰</span><span>메모</span></button>
+   <button class="app-icon" data-app="settings"><span class="tile" style="background:linear-gradient(145deg,#d8dbe2,#8b8e98)">⚙</span><span>설정</span></button>
+  </div>
+  <div class="dock">
+   <button class="app-icon" data-app="contacts"><span class="tile phoneapp">☎</span></button>
+   <button class="app-icon" data-app="messages"><span class="tile messagesapp">●</span></button>
+   <button class="app-icon" data-app="photos"><span class="tile photosapp">✿</span></button>
+   <button class="app-icon" data-app="music"><span class="tile musicapp">♫</span></button>
+  </div>
+ </section>
+ <div class="keypad-screen" id="keypad">
+  <h3>암호 입력</h3><div class="dots" id="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div class="keypad">
+   <button class="key" data-num="1">1<small>&nbsp;</small></button><button class="key" data-num="2">2<small>ABC</small></button><button class="key" data-num="3">3<small>DEF</small></button>
+   <button class="key" data-num="4">4<small>GHI</small></button><button class="key" data-num="5">5<small>JKL</small></button><button class="key" data-num="6">6<small>MNO</small></button>
+   <button class="key" data-num="7">7<small>PQRS</small></button><button class="key" data-num="8">8<small>TUV</small></button><button class="key" data-num="9">9<small>WXYZ</small></button>
+   <button class="key blank"></button><button class="key" data-num="0">0</button><button class="key" id="deleteKey">⌫</button>
+  </div>
+  <button style="margin-top:22px;background:none;border:0;color:white;font-size:14px" id="cancelKeypad">취소</button>
+ </div>
+ <div class="app-window" id="appWindow">
+  <div class="app-header"><button id="backHome">‹ 홈</button><strong id="appTitle">앱</strong><button id="closeApp">완료</button></div>
+  <div class="app-content" id="appContent"></div>
+ </div>
+ <div class="lightbox" id="lightbox"><div class="large-photo" id="largePhoto">♡</div><div id="photoCaption" style="margin-top:16px">사진 1 / 29</div><button id="closeLightbox">닫기</button></div>
+ <div class="call-screen" id="callScreen">
+  <div class="muted" style="color:#c5c7cf;font-size:12px;letter-spacing:1px">iPhone 통화</div>
+  <div class="contact-avatar" style="width:90px;height:90px;border-radius:50%;margin-top:28px;font-size:38px;background:#555b68;color:#fff">🐷</div>
+  <div class="call-name" id="callName">운요미 🐷</div><div class="call-state" id="callState">통화 중 · 00:00</div>
+  <div class="call-line"><small id="callSpeaker">운학</small><span id="callDialogue">- 형 뭐해요?</span></div>
+  <div class="call-controls">
+   <div><button class="call-control" id="callMute">⌁</button><div class="call-control-label">음소거</div></div>
+   <div><button class="call-control" id="callKeypad">▦</button><div class="call-control-label">키패드</div></div>
+   <div><button class="call-control" id="callSpeakerBtn">◖))</button><div class="call-control-label">스피커</div></div>
+   <div><button class="call-control" id="callReply">⌨</button><div class="call-control-label">문자로 답하기</div></div>
+   <div><button class="call-control" id="callMore">＋</button><div class="call-control-label">추가 기능</div></div>
+   <div><button class="call-control call-end" id="callEnd">☎</button><div class="call-control-label">통화 종료</div></div>
+  </div>
+ </div>
+ <div class="toast" id="toast"></div>
+ <div class="home-indicator" id="homeBar"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const lock=$('#lock'), home=$('#home'), keypad=$('#keypad'), appWindow=$('#appWindow'), content=$('#appContent');
+let pin='',activeApp='',touchStartY=null;
+const youtubeJazzy='https://www.youtube.com/results?search_query='+encodeURIComponent('재지팩트 아까워');
+const youtubeBabylon='https://www.youtube.com/results?search_query='+encodeURIComponent('Babylon 널 생각해');
+function updateClock(){const d=new Date();$('#statusTime').textContent=d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',hour12:false});$('#lockTime').textContent=d.toLocaleTimeString('ko-KR',{hour:'numeric',minute:'2-digit',hour12:false});$('#lockDate').textContent=d.toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'long'});}
+updateClock();setInterval(updateClock,15000);
+function unlock(){keypad.classList.remove('show');home.classList.add('active');lock.style.transform='translateY(-100%)';lock.style.opacity='0';setTimeout(()=>{lock.style.display='none'},420)}
+function showKeypad(){pin='';renderDots();keypad.classList.add('show')}
+function renderDots(){ $$('#dots .dot').forEach((d,i)=>d.classList.toggle('filled',i<pin.length));}
+$('#unlockBar').addEventListener('click',showKeypad);
+lock.addEventListener('click',e=>{if(!e.target.closest('button'))showKeypad()});
+lock.addEventListener('touchstart',e=>touchStartY=e.touches[0].clientY,{passive:true});
+lock.addEventListener('touchend',e=>{if(touchStartY!==null&&touchStartY-e.changedTouches[0].clientY>35)showKeypad();touchStartY=null},{passive:true});
+lock.addEventListener('pointerup',e=>{if(e.clientY<window.innerHeight*.7 && !e.target.closest('button')){} });
+$$('[data-num]').forEach(b=>b.addEventListener('click',()=>{pin+=b.dataset.num;renderDots();if(pin.length===4)setTimeout(unlock,160)}));
+$('#deleteKey').onclick=()=>{pin=pin.slice(0,-1);renderDots()};$('#cancelKeypad').onclick=()=>keypad.classList.remove('show');
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function appHeader(title){$('#appTitle').textContent=title}
+const contacts=['운요미 🐷','주연이 형','kZ재현이 형','대표님','김동현','kZ상혁이 형','kZ성호형','엄마','아빠','동생','매니저 형'];
+function contactHTML(){return `<h2>전화</h2><div class="muted" style="margin-bottom:10px">즐겨찾기 · 11명</div>${contacts.map((n,i)=>`<button class="list-row contact-call" data-contact="${escapeHTML(n)}" style="width:100%;border:0;background:transparent;text-align:left;color:#17171c"><div class="contact-avatar">${i===0?'🐷':i===7?'♡':'👤'}</div><div class="row-main"><b>${n}</b><small>${i===0?'내 마음 1순위':'휴대전화'}</small></div><span style="color:#1686ff">☎</span></button>`).join('')}`}
+function instagramHTML(){return `<div class="muted" style="font-size:14px">‹　T.san <span style="float:right">•••</span></div><div class="profile-head"><div class="avatar">⛰</div><div class="stats"><div><b>1</b>게시물</div><div><b>4.9만</b>팔로워</div><div><b>1</b>팔로잉</div></div></div><b style="font-size:14px">한태산</b><div style="font-size:12px;color:#777;margin-top:4px">팔로잉 · w.oO_k</div><div class="muted" style="font-size:12px;margin-top:22px">게시물</div><div class="post-grid"><div class="post" style="background-image:url('photos/photo01.jpg');background-size:cover;background-position:center">🌙</div></div>`}
+function calendarHTML(){return `<h2>10월</h2><div class="muted" style="margin-bottom:18px">2026년</div><div class="calendar-grid">${['일','월','화','수','목','금','토'].map(x=>`<span class="muted">${x}</span>`).join('')}${Array.from({length:35},(_,i)=>{let day=i-3;return `<span class="${day===24?'marked':''}">${day>0&&day<=31?day:''}</span>`}).join('')}</div><div class="event">❤️　<b>10월 24일 · 데이트</b><div class="muted" style="margin:7px 0 0 27px">우리 둘이 보내는 하루</div></div><div class="event">🐷　<b>11월 29일 · 운요미 생일</b><div class="muted" style="margin:7px 0 0 27px">세상에서 제일 소중한 날</div></div>`}
+function photosHTML(){return `<h2>사진</h2><div class="muted" style="margin-bottom:14px">최근 항목 · 29장</div><div class="gallery">${Array.from({length:29},(_,i)=>`<div class="gallery-item" data-photo="${i+1}" style="background-image:url('photos/photo${String(i+1).padStart(2,'0')}.jpg');background-size:cover;background-position:center">${['♡','✿','☁','🎂','♫','🌙'][i%6]}</div>`).join('')}</div><div class="event">사진 파일을 추가하면 실제 사진이 표시돼요. 파일명: photos/photo01.jpg ~ photo29.jpg</div>`}
+const starter=[['2023년 어느 날','오늘 뭐해? 🐷'],['2023년 어느 날','그냥 너 생각'],['오늘','밥 먹었어?'],['오늘','응 너는?']];
+function messagesHTML(){return `<h2>메시지</h2><div class="muted">iMessage · 대화 내용은 세부 설정 후 추가할게.</div><div class="event">여기는 카카오톡과 별개의 메시지 앱이야.</div>`}
+const kakaoHistory=[['date','2023년 5월 1일 월요일'],['w','형'],['w','형형형'],['t','?'],['t','왜'],['t','뭔데'],['w','형 혹시 지금 뭐해요?'],['t','그냥 있지'],['t','왜?'],['w','이따 피방이나 갈래요?'],['t','공부나 해라'],['t','고딩아'],['w','😟']];
+function kakaoHTML(){return `<div class="kakao-top">운요미 🐷 <span style="float:right;font-weight:400">•••</span></div><div class="chat-list" id="kakaoList">${kakaoHistory.map(([who,msg])=>who==='date'?`<div class="chat-date">${msg}</div>`:`<div class="bubble ${who==='t'?'me':''}">${escapeHTML(msg)}</div>`).join('')}</div><div class="chat-compose"><input id="kakaoInput" placeholder="메시지 보내기" maxlength="240"><button id="sendKakao">↑</button></div>`}
+
+let notes=JSON.parse(localStorage.getItem('twNotes')||'null')||[{title:'운학이 좋아하는 것',body:'태산이랑 같이 있기 ♡'},{title:'우리의 기록',body:'평범한 날도 너랑 있으면 특별해.'},{title:'11월 29일',body:'운요미 생일 꼭 기억하기!'}];
+function saveNotes(){localStorage.setItem('twNotes',JSON.stringify(notes))}
+function notesHTML(){return `<div style="display:flex;justify-content:space-between;align-items:center"><h2>모든 메모</h2><button id="addNote" style="border:0;background:#f2d66c;border-radius:20px;padding:8px 13px">＋</button></div><input id="noteSearch" placeholder="검색" oninput="filterNotes(this.value)" style="width:100%;border:0;background:#e7e7ec;border-radius:12px;padding:13px;margin:4px 0 16px;font-size:15px"> <div id="noteList">${notes.map((n,i)=>`<button data-note="${i}" class="event note-row" style="display:block;text-align:left;width:100%;color:#17171c"><b>${escapeHTML(n.title)}</b><div class="muted" style="margin-top:7px">${escapeHTML(n.body)}</div></button>`).join('')}</div>`}
+function filterNotes(q){$$('.note-row').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q.toLowerCase())?'block':'none')}
+function addNote(){const title=prompt('메모 제목','새 메모');if(title===null)return;const body=prompt('메모 내용','');if(body===null)return;notes.unshift({title,body});saveNotes();renderApp('notes')}
+function editNote(i){const title=prompt('메모 제목',notes[i].title);if(title===null)return;const body=prompt('메모 내용',notes[i].body);if(body===null)return;notes[i]={title,body};saveNotes();renderApp('notes')}
+function settingsHTML(){return `<h2>설정</h2><input id="settingsSearch" placeholder="🔎 검색" style="width:100%;border:0;background:#e4e4e9;border-radius:12px;padding:13px;margin-bottom:18px;font-size:15px"><div class="event" style="display:flex;align-items:center;gap:12px"><div class="contact-avatar">⛰</div><div><b>태산 × 운학</b><div class="muted" style="margin-top:4px">팬메이드 개인 공간</div></div></div>${[['✈️','비행기 모드'],['📶','Wi-Fi'],['ᛒ','Bluetooth'],['📡','셀룰러'],['🔔','알림'],['🌙','집중 모드'],['⌛','스크린 타임'],['⚙️','일반'],['☀️','디스플레이 및 밝기']].map(([icon,name],i)=>`<button class="list-row setting-row" style="width:100%;background:white;border:0;text-align:left;color:#17171c" data-toggle="${name}"><span class="contact-avatar" style="border-radius:12px">${icon}</span><span class="row-main"><b>${name}</b></span><span class="setting-switch ${i===2?'enabled':''}" style="color:#888">${i===2?'켬':'›'}</span></button>`).join('')}<div class="event muted">이 화면은 팬메이드 설정 시뮬레이션이야.</div>`}
+
+function renderApp(app){
+ activeApp=app;appWindow.classList.add('open');let title='',html='';
+ if(app==='instagram'){title='Instagram';html=instagramHTML()}
+ if(app==='contacts'){title='전화';html=contactHTML()}
+ if(app==='calendar'){title='캘린더';html=calendarHTML()}
+ if(app==='photos'){title='사진 보관함';html=photosHTML()}
+ if(app==='messages'){title='메시지';html=messagesHTML()}
+ if(app==='kakao'){title='카카오톡';html=kakaoHTML()}
+ if(app==='music'){title='음악';html=`<div style="text-align:center;padding:35px 10px"><div class="album" style="width:190px;height:190px;border-radius:24px;margin:auto;font-size:55px">♫</div><h2 style="margin-top:24px">아까워</h2><div class="muted">재지팩트</div><button class="follow" style="margin-top:25px" onclick="window.open('${youtubeJazzy}','_blank')">YouTube에서 듣기 ↗</button><div class="event" onclick="window.open('${youtubeBabylon}','_blank')">다음 곡 · Babylon — 널 생각해 ↗</div></div>`}
+ if(app==='notes'){title='메모';html=notesHTML()}
+ if(app==='settings'){title='설정';html=settingsHTML()}
+ appHeader(title);content.innerHTML=html;content.scrollTop=0;
+ if(app==='photos')$$('[data-photo]').forEach(el=>el.onclick=()=>openPhoto(+el.dataset.photo));
+ if(app==='messages'){}
+ if(app==='kakao'){$('#sendKakao').onclick=sendKakao;$('#kakaoInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendKakao()})}
+ if(app==='contacts'){$$('.contact-call').forEach(b=>b.onclick=()=>startCall(b.dataset.contact))}
+ if(app==='notes'){const add=$('#addNote');if(add)add.onclick=addNote;$$('[data-note]').forEach(b=>b.onclick=()=>editNote(+b.dataset.note));}
+ if(app==='settings'){$$('[data-toggle]').forEach(b=>b.onclick=()=>{const sw=b.querySelector('.setting-switch');b.classList.toggle('enabled');if(sw)sw.textContent=b.classList.contains('enabled')?'켬':'끔';toast(b.dataset.toggle+' 설정 변경')});const search=$('#settingsSearch');if(search)search.oninput=()=>$$('.setting-row').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(search.value.toLowerCase())?'flex':'none')}
+}
+function closeApp(){appWindow.classList.remove('open');activeApp=''}
+$$('[data-app]').forEach(b=>b.addEventListener('click',()=>renderApp(b.dataset.app)));
+$('#backHome').onclick=closeApp;$('#closeApp').onclick=closeApp;
+function sendMessage(){toast('메시지 앱의 대화 설정은 다음 단계에서 추가할게.')}
+function sendKakao(){const input=$('#kakaoInput');if(!input||!input.value.trim())return;const list=$('#kakaoList');const text=input.value.trim();list.insertAdjacentHTML('beforeend',`<div class="bubble me">${escapeHTML(text)}</div>`);input.value='';list.insertAdjacentHTML('beforeend',`<div class="bubble">아 ㅋㅋ 형 갑자기 왜요</div>`);list.scrollTop=list.scrollHeight}
+let callStarted=0,callTimer=null,callNameNow='운요미 🐷';function startCall(name){callNameNow=name||'운요미 🐷';$('#callName').textContent=callNameNow;$('#callSpeaker').textContent=callNameNow==='운요미 🐷'?'운학':callNameNow;$('#callDialogue').textContent='- 형 뭐해요?';$('#callState').textContent='연결 중…';$('#callScreen').classList.add('show');closeApp();callStarted=Date.now();setTimeout(()=>{if($('#callScreen').classList.contains('show')){if($('#callState').textContent==='연결 중…')$('#callState').textContent='통화 중 · 00:00';callTimer=setInterval(()=>{if(!$('#callScreen').classList.contains('show'))return;const n=Math.floor((Date.now()-callStarted)/1000);$('#callState').textContent=`통화 중 · ${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`},1000)}},650)}
+function endCall(){ $('#callScreen').classList.remove('show');if(callTimer)clearInterval(callTimer);callTimer=null;toast('통화가 종료되었습니다.')}
+$('#callEnd').onclick=endCall;$('#callReply').onclick=()=>{const v=prompt('운학이에게 할 말','형 뭐해요?');if(v&&v.trim()){const isWoonhak=callNameNow==='운요미 🐷';$('#callSpeaker').textContent=isWoonhak?'태산':callNameNow;$('#callDialogue').textContent=v.trim();setTimeout(()=>{if($('#callScreen').classList.contains('show')){$('#callSpeaker').textContent=isWoonhak?'운학':callNameNow;$('#callDialogue').textContent=isWoonhak?'- 아니 그냥 형 생각나서 전화했어요ㅋㅋ':'- 네, 무슨 일이세요?'}},900)}};$('#callMute').onclick=()=>toast('음소거 버튼을 눌렀어요');$('#callKeypad').onclick=()=>toast('키패드 화면은 다음 단계에서 연결할게');$('#callSpeakerBtn').onclick=()=>toast('텍스트 통화 모드예요');$('#callMore').onclick=()=>toast('가상 통화 기능입니다.')
+function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function openPhoto(n){const el=$('#largePhoto');el.textContent=['♡','✿','☁','🎂','♫','🌙'][((n-1)%6)];el.style.backgroundImage=`url('photos/photo${String(n).padStart(2,'0')}.jpg')`;el.style.backgroundSize='contain';el.style.backgroundRepeat='no-repeat';el.style.backgroundPosition='center';$('#photoCaption').textContent=`사진 ${n} / 29`;$('#lightbox').classList.add('show')}
+$('#closeLightbox').onclick=()=>$('#lightbox').classList.remove('show');
+$('#lockMusic').onclick=()=>window.open(youtubeJazzy,'_blank');
+$('#homeMusic').onclick=()=>window.open(youtubeBabylon,'_blank');
+$('#homeBar').onclick=()=>{if(appWindow.classList.contains('open'))closeApp();else{home.classList.remove('active');lock.style.display='block';requestAnimationFrame(()=>{lock.style.transform='translateY(0)';lock.style.opacity='1'})}};
+let appTouchY=null;appWindow.addEventListener('touchstart',e=>appTouchY=e.touches[0].clientY,{passive:true});appWindow.addEventListener('touchend',e=>{if(appTouchY!==null&&e.changedTouches[0].clientY-appTouchY>100)closeApp();appTouchY=null},{passive:true});
+</script>
+</body>
+</html>
